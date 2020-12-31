@@ -5,6 +5,10 @@
 <script>
 export default {
   name: 'Dashboard',
+
+  middleware: 'auth',
+
+  ssr: false,
 }
 </script>
 
