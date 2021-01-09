@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model User {
+  id Int  @default(autoincrement()) @id
+  email String @unique
+  name  String?
+  subid String  @unique
+  avatar String?
+  nickname String?
+  website String?
+  podcastId Int?
+  podcast Podcast?  @relation(fields: [podcastId], references: [id])
+}
+
+model Category {
+  id  Int @default(autoincrement()) @id
+  name  String
+  description String?
+}
+
+model Podcast {
+  id  Int @default(autoincrement()) @id
+  name  String  @unique
+  description String
+  coverArt String?
+  categoryId  Int
+  category  Category  @relation(fields: [categoryId], references: [id])
+  language  String?
+  isExplicit Boolean? @default(false)
+  slug  String
+  createdAt  DateTime    @default(now())
+}
+
+model Episode {
+  id  Int @default(autoincrement()) @id
+  name  String
+  description String
+  publishDate DateTime?
+  podcastId Int
+  podcast Podcast @relation(fields: [podcastId], references: [id])
+  createdAt  DateTime    @default(now())
+}
