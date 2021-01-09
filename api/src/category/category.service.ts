@@ -7,19 +7,19 @@ export class CategoryService {
   constructor(private prisma: PrismaService) {}
 
   async category(
-    categoryWhereUniqueInput: Prisma.CategoryWhereUniqueInput
+    categoryWhereUniqueInput: Prisma.CategoryWhereUniqueInput,
   ): Promise<Category | null> {
     return this.prisma.category.findUnique({
-      where: categoryWhereUniqueInput
+      where: categoryWhereUniqueInput,
     });
   }
 
   async categories(params: {
     skip?: number;
     take?: number;
-    cursor?: Prisma.CategoryWhereUniqueInput,
-    where?: Prisma.CategoryWhereInput,
-    orderBy?: Prisma.CategoryOrderByInput
+    cursor?: Prisma.CategoryWhereUniqueInput;
+    where?: Prisma.CategoryWhereInput;
+    orderBy?: Prisma.CategoryOrderByInput;
   }): Promise<Category[]> {
     const { skip, take, cursor, where, orderBy } = params;
 
@@ -28,7 +28,7 @@ export class CategoryService {
       take,
       cursor,
       where,
-      orderBy
+      orderBy,
     });
   }
 
@@ -42,10 +42,12 @@ export class CategoryService {
   }): Promise<Category> {
     const { where, data } = params;
 
-    return this.prisma.category.update({ data, where })
+    return this.prisma.category.update({ data, where });
   }
 
-  async deleteCategory(where: Prisma.CategoryWhereUniqueInput): Promise<Category> {
+  async deleteCategory(
+    where: Prisma.CategoryWhereUniqueInput,
+  ): Promise<Category> {
     return this.prisma.category.delete({ where });
   }
 }
